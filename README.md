@@ -40,6 +40,7 @@ This app should work on Linux & MacOS! (although untested)
 # Restart Memberthon
 1. close the .bat file.
 2. re-open the .bat file.
+<br>
 OR
 1. Use the "Restart" button on control centre webpage
 
