@@ -1,15 +1,11 @@
-# THIS REPOSITORY IS NO LONGER MAINTAINED AND FUTURE FUNCTIONALITY OF THIS PROGRAM IS NOT GUARANTEED
-#
-#
 # Memberthon Setup!
 
 1. Go to [NodeJS.org](https://nodejs.org/en/download) and download the LTS.
 2. Download the .rar in releases, or download the source code.
-3. Open CLICK ME TO START!.bat and boom, your all set.
+3. Open start.bat/start.sh and the program will start, and open you to the setup page.
 
-This app should work on Linux & MacOSX!
+This app should work on Linux & MacOS! (although untested)
 
-ENJOY!
 
 
 # What is all of dis shtuff mean?
@@ -48,10 +44,12 @@ ENJOY!
 1. Delete the save.json file in the Memberthon directory.
 2. close the .bat file.
 3. re-open the .bat file.
+OR
+1. Enter new URL at the bottom of the page, and restart the backend server
 
 # Styling
 To style your overlays, you must use CSS!
-### To learn CSS go [HERE](https://www.w3schools.com/css/)! (its mega easy for the basics trust me)
+### To understand the basics of CSS go [HERE](https://www.w3schools.com/css/)!
 For custom fonts, i suggest using Google Fonts, and you need to use the @import method, shown below:<br>
 ![image](https://github.com/TOG11/Memberthon/assets/71170613/aa600b81-8187-481e-9985-ef1a607b27bb) <br>
 Copy the text from that box, put it at the top of the css where the other @imports are.<br>

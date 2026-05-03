@@ -6,24 +6,41 @@
     <link rel="stylesheet" href="/styles/index">
 </head>
 <script>
-    function getID(e) {
-        var id = new URLSearchParams(e.value.replace("?", "&"));
-        console.log(id.get("v"))
-        e.value = id.get("v");
+function getID(e) {
+    try {
+        let url = new URL(e.value);
+
+        let id = null;
+
+        // standard watch URL
+        if (url.searchParams.get("v")) {
+            id = url.searchParams.get("v");
+        }
+
+        // live URL (/live/{id})
+        else if (url.pathname.startsWith("/live/")) {
+            id = url.pathname.split("/live/")[1].split("/")[0];
+        }
+
+        if (id) {
+            e.value = id;
+        }
+    } catch (err) {
+        console.error("Invalid URL");
     }
+}
 </script>
 
 <body>
     <br> <br>
     <h1 class="outfit">Memberthon Setup</h1>
-    <h3 class="outfit"><b><i>Created By Togi</i></b></h3>
     <br> <br>
     <br> <br>
-    <!-- Start Home Page -->
+    <!-- Start Setup Page -->
 
     <form method="post" action="http://localhost:5653/setup">
         <h2 class="outfit">Livestream URL:<br></h2>
-        <h4 class="outfit red">This will default to the live streams ID, dont worry about it!</h4>
+        <h4 class="outfit red">The URL of the livestream to attach Membethon to: <i style="font-size: 11px;">(field will use its ID)</i></h4>
         <input name="liveid" class="field" type="text" placeholder="URL" oninput="getID(this);" required>
         <br> <br>
         <h2 class="outfit">Membership Addition Time (mins):<br></h2>
@@ -38,5 +55,7 @@
         <input class="button" type="submit" value="Start Memberthon Server" required>
     </form>
 </body>
-
+<br> <br>
+<br> <br>
+<br> <br>
 </html>

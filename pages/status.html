@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Memberthon Control</title>
+    <title>Memberthon Control Centre</title>
     <link rel="stylesheet" href="/styles/status">
 </head>
 <script>
@@ -24,7 +24,7 @@
             if (data.error) {
                 document.getElementById('error').innerHTML = "ERR! Details: " + data.details;
             } else {
-                document.getElementById('online').innerHTML = data.online ? "SERVER STARTED & ONLINE!" : "IMPOSSIBLE ERR";
+                document.getElementById('online').innerHTML = data.online ? "SERVER ONLINE" : "IMPOSSIBLE ERR";
                 document.getElementById('madd').innerHTML = "Current Member Addition: " + data.member;
                 document.getElementById('sadd').innerHTML = "Current Superchat Addition: " + data.superchat;
                 document.getElementById('end').innerHTML = "Ending At: " + data.end;
@@ -73,8 +73,35 @@
     }
 
     function NewLiveID(e) {
-        var id = new URLSearchParams(e.value.replace("?", "&"));
-        controlSocket.send(JSON.stringify({ request: "NewLiveID", value: id.get("v") }))
+        var id = "";
+        try {
+            let url = new URL(e.value);
+
+            let id = null;
+
+            // standard watch URL
+            if (url.searchParams.get("v")) {
+                id = url.searchParams.get("v");
+            }
+
+            // live URL (/live/{id})
+            else if (url.pathname.startsWith("/live/")) {
+                id = url.pathname.split("/live/")[1].split("/")[0];
+            }
+
+            if (id) {
+                e.value = id;
+                controlSocket.send(JSON.stringify({ request: "NewLiveID", value: id }))
+            }
+
+        } catch (err) {
+            console.error("Invalid URL");
+        }
+    }
+
+    function RestartBackend() {
+        controlSocket.send(JSON.stringify({ request: "Restart" }))
+        window.close();
     }
 
 </script>
@@ -82,12 +109,12 @@
 <body>
     <br> <br>
     <h1 class="outfit">Memberthon Status & Control</h1>
-    <h3 class="outfit"><b><i>Created By Togi</i></b></h3>
+    <h3 class="outfit">By <b>Aiden Desjarlais</b></h3>
     <br> <br>
     <br> <br>
-    <input class="button" value="Timer Page (for OBS)" type="text" onclick="window.location.href='/overlay'">
+    <input class="button" value="Timer (Stream Overlay)" type="text" onclick="window.location.href='/overlay'">
     <br> <br>
-    <input class="button" value="Alerts Page (for OBS)" type="text" onclick="window.location.href='/alerts'">
+    <input class="button" value="Alerts (Stream Overlay)" type="text" onclick="window.location.href='/alerts'">
     <br>
     <!-- Start Status Page -->
     <h3 id="error" class="red outfit medium"></h3>
@@ -123,6 +150,10 @@
     <h2 class="outfit">New Live Video:<br></h2>
     <h4 class="outfit red">THIS REQUIRES A BACKEND SERVER RESTART ONCE INPUTTED.</h4>
     <input id="liveid" class="field" type="text" placeholder="New Livestream URL" oninput="NewLiveID(this)">
+    <br> <br>
+    <h2 class="outfit">Restart Backend:<br></h2>
+    <input class="button" value="Restart Server" type="text" onclick="RestartBackend()">
+
     <br> <br>
 
     <br> <br>

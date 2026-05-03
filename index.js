@@ -12,18 +12,23 @@ const LOAD_SAVE = true; //keep off to manually set the channel each time on load
 const TESTING = false; //will enable 4 test donations of diffrent types.
 
 const fs = require('fs');
-const { LiveChat } = require("youtube-chat");
+const { LiveChat } = require("narze-youtube-chat");
 
 // our lord and saviour print()
 const print = console.log;
-// yes. This print method is necessary for convenience. ;)
+// yes. This print method is necessary for convenience
 
+//Kill the global log 
+console.log = () => {}; 
+
+const { spawn } = require('child_process');
 const bodyParser = require('body-parser');
 const app = require('express')();
 var expressWs = require('express-ws')(app);
 const path = require('path');
 const { randomUUID } = require('crypto');
 const chalk = require('chalk');
+const { exit } = require('process');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var loaded = false; // true if save is loaded
@@ -43,7 +48,7 @@ class Membership { }
 class SuperChat { }
 class Chat { } // push this for testing, with each chat time increases by the testing amount.
 
-print(chalk.blueBright("Starting " + chalk.greenBright('MEMBERTHON') + " By Aiden C. Desjarlais " + chalk.blue("https://aidendes.com")));
+print(chalk.blueBright("Starting " + chalk.greenBright('MEMBERTHON') + " By Aiden Desjarlais " + chalk.blue("https://aidendes.com")));
 
 //get overlay status
 app.ws('/ws/status', function (ws, req) {
@@ -148,6 +153,18 @@ app.ws('/ws/control', function (ws, req) {
                 LiveID = data.value;
                 SaveCountdown();
                 break;
+            case "Restart":
+                print("Restarting Backend...")
+                
+                spawn('cmd', ['/c', 'node index.js'], {
+                    cwd: process.cwd(),
+                    detached: true,
+                    shell: true,      // Must be true to use 'start'
+                    stdio: 'ignore'   // Must be ignored so the parent can close
+                }).unref(); 
+
+                process.exit(); 
+                break;
         }
     });
 });
@@ -174,7 +191,7 @@ app.get('/overlay', (req, res) => {
 })
 
 app.get('/alerts', (req, res) => {
-    res.sendFile(path.join(__dirname, "./alerts.html"))
+    res.sendFile(path.join(__dirname, "./pages/alerts.html"))
 })
 
 app.get('/status', (req, res) => {
@@ -279,8 +296,8 @@ async function initServer() {
     const ok = await liveChat.start()
     if (!ok) {
         failedStart = true;
-        failiureDetails = "Failed to start the chat listener server. ERR: \n" + err;
-        print(chalk.red("Failed to start, check emitted error\n" + err));
+        failiureDetails = "Failed to start the chat listener server";
+        print(chalk.red("Failed to start, check emitted error"));
         return;
     }
     print(chalk.yellow("Server Initialized!"));
