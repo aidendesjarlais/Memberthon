@@ -48,10 +48,6 @@ OR
 # Make a new Memberthon
 1. Delete the save.json file in the Memberthon directory.
 2. Restart Memberthon
-<br>
-OR
-<br>
-1. Enter new URL at the bottom of the page, and restart the backend server
 
 # Styling
 To style your overlays, you must use CSS!
