@@ -42,12 +42,15 @@ This app should work on Linux & MacOS! (although untested)
 2. re-open the .bat file.
 <br>
 OR
+<br>
 1. Use the "Restart" button on control centre webpage
 
 # Make a new Memberthon
 1. Delete the save.json file in the Memberthon directory.
 2. Restart Memberthon
+<br>
 OR
+<br>
 1. Enter new URL at the bottom of the page, and restart the backend server
 
 # Styling
