@@ -35,15 +35,17 @@ This app should work on Linux & MacOS! (although untested)
 **"Save config"** = Press this to save the countdowns details <br>
 **"Pause/Resume"** = Press this to stop all time increases <br>
 **"New Live Video"** = Input a new livestream to attach the alerts too (requires .bat restart) <br>
+**"Restart"** = Fully restarts Memberthon <br>
 
 # Restart Memberthon
 1. close the .bat file.
 2. re-open the .bat file.
+OR
+1. Use the "Restart" button on control centre webpage
 
 # Make a new Memberthon
 1. Delete the save.json file in the Memberthon directory.
-2. close the .bat file.
-3. re-open the .bat file.
+2. Restart Memberthon
 OR
 1. Enter new URL at the bottom of the page, and restart the backend server
 
