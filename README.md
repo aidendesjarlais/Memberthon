@@ -1,3 +1,6 @@
+# THIS REPOSITORY IS NO LONGER MAINTAINED AND FUTURE FUNCTIONALITY OF THIS PROGRAM IS NOT GUARANTEED
+#
+#
 # Memberthon Setup!
 
 1. Go to [NodeJS.org](https://nodejs.org/en/download) and download the LTS.
